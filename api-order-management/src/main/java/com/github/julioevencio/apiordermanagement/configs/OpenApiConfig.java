@@ -11,7 +11,7 @@ import io.swagger.v3.oas.models.info.License;
 public class OpenApiConfig {
 
 	@Bean
-	public OpenAPI custoOpenAPI() {
+	OpenAPI custoOpenAPI() {
 		Info info = new Info()
 				.title("API Order Management")
 				.version("1.0")
