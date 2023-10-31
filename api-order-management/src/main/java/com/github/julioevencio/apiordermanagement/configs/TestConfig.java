@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.github.julioevencio.apiordermanagement.entities.Category;
 import com.github.julioevencio.apiordermanagement.entities.Order;
 import com.github.julioevencio.apiordermanagement.entities.User;
 import com.github.julioevencio.apiordermanagement.entities.enums.OrderStatus;
+import com.github.julioevencio.apiordermanagement.repositories.CategoryRepository;
 import com.github.julioevencio.apiordermanagement.repositories.OrderRepository;
 import com.github.julioevencio.apiordermanagement.repositories.UserRepository;
 
@@ -23,9 +25,18 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		Category category1 = new Category(null, "Electronics");
+		Category category2 = new Category(null, "Books");
+		Category category3 = new Category(null, "Computers");
+		
+		categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+		
 		User user1 = new User(null, "Fulano", "fulano@gmail.com", "999999", "123456");
 		User user2 = new User(null, "Ciclano", "ciclano@gmail.com", "888888", "123456");
 		
