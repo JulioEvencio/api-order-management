@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping(value = "/orders")
-@Tag(name = "Order", description = "Endpoints for orders")
+@Tag(name = "Orders", description = "Endpoints for orders")
 public class OrderResource {
 	
 	@Autowired

@@ -13,14 +13,14 @@ import com.github.julioevencio.apiordermanagement.repositories.OrderRepository;
 public class OrderService {
 
 	@Autowired
-	private OrderRepository OrderRepository;
+	private OrderRepository orderRepository;
 	
 	public List<Order> findAll() {
-		return OrderRepository.findAll();
+		return orderRepository.findAll();
 	}
 	
 	public Order findById(Long id) {
-		Optional<Order> optional = OrderRepository.findById(id);
+		Optional<Order> optional = orderRepository.findById(id);
 		
 		return optional.get();
 	}
