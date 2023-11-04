@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,6 +120,28 @@ public class UserResource {
 		userService.delete(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(
+			summary = "Update an user by id",
+			description = "Update an user by id",
+			tags = {"Users"},
+			responses = {
+					@ApiResponse(
+							responseCode = "200",
+							description = "Update an user by id",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = User.class)
+							)
+					)
+			}
+	)
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+		User response = userService.update(id, user);
+		
+		return ResponseEntity.ok().body(response);
 	}
 	
 }
