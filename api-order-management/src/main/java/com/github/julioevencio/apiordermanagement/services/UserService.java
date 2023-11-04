@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.julioevencio.apiordermanagement.entities.User;
 import com.github.julioevencio.apiordermanagement.repositories.UserRepository;
+import com.github.julioevencio.apiordermanagement.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -22,7 +23,7 @@ public class UserService {
 	public User findById(Long id) {
 		Optional<User> optional = userRepository.findById(id);
 		
-		return optional.get();
+		return optional.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 	}
 	
 	public User insert(User user) {

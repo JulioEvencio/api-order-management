@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.github.julioevencio.apiordermanagement.entities.User;
+import com.github.julioevencio.apiordermanagement.resources.exceptions.StandardError;
 import com.github.julioevencio.apiordermanagement.services.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,6 +69,14 @@ public class UserResource {
 							content = @Content(
 									mediaType = MediaType.APPLICATION_JSON_VALUE,
 									schema = @Schema(implementation = User.class)
+							)
+					),
+					@ApiResponse(
+							responseCode = "404",
+							description = "User not found",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = StandardError.class)
 							)
 					)
 			}
