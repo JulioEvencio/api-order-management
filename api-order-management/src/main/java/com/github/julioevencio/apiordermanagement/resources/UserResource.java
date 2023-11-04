@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,27 @@ public class UserResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(response);
+	}
+	
+	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(
+			summary = "Delete an user by id",
+			description = "Delete an user by id",
+			tags = {"Users"},
+			responses = {
+					@ApiResponse(
+							responseCode = "204",
+							description = "Delete an user by id",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE
+							)
+					)
+			}
+	)
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		userService.delete(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 }
