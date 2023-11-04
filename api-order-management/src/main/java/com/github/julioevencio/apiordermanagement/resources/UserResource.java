@@ -1,5 +1,6 @@
 package com.github.julioevencio.apiordermanagement.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.github.julioevencio.apiordermanagement.entities.User;
 import com.github.julioevencio.apiordermanagement.services.UserService;
@@ -70,6 +74,29 @@ public class UserResource {
 		User user = userService.findById(id);
 		
 		return ResponseEntity.ok().body(user);
+	}
+	
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(
+			summary = "Insert a new user",
+			description = "Insert a new user",
+			tags = {"Users"},
+			responses = {
+					@ApiResponse(
+							responseCode = "201",
+							description = "Insert a new user",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = User.class)
+							)
+					)
+			}
+	)
+	public ResponseEntity<User> insert(@RequestBody User user) {
+		User response = userService.insert(user);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(response);
 	}
 	
 }
