@@ -7,6 +7,7 @@ An API for order management
 ## Technologies used
 - Java
 - Maven
+- Docker
 - Spring Boot
 - Spring web
 - Spring Data JPA
