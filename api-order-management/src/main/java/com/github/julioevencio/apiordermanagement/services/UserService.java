@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.github.julioevencio.apiordermanagement.entities.User;
 import com.github.julioevencio.apiordermanagement.repositories.UserRepository;
+import com.github.julioevencio.apiordermanagement.services.exceptions.DatabaseException;
 import com.github.julioevencio.apiordermanagement.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -31,7 +33,15 @@ public class UserService {
 	}
 	
 	public void delete(Long id) {
-		userRepository.deleteById(id);
+		try {
+	        if (userRepository.existsById(id)) {
+	        	userRepository.deleteById(id);			
+	        } else {				
+	            throw new ResourceNotFoundException("User not found");			
+	        }		
+	    } catch (DataIntegrityViolationException e) {			
+	        throw new DatabaseException(e.getMessage());		
+	    }
 	}
 	
 	public User update(Long id, User user) {

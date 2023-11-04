@@ -122,6 +122,22 @@ public class UserResource {
 							content = @Content(
 									mediaType = MediaType.APPLICATION_JSON_VALUE
 							)
+					),
+					@ApiResponse(
+							responseCode = "404",
+							description = "Resource not found",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = StandardError.class)
+							)
+					),
+					@ApiResponse(
+							responseCode = "400",
+							description = "Database error",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = StandardError.class)
+							)
 					)
 			}
 	)
