@@ -160,6 +160,14 @@ public class UserResource {
 									mediaType = MediaType.APPLICATION_JSON_VALUE,
 									schema = @Schema(implementation = User.class)
 							)
+					),
+					@ApiResponse(
+							responseCode = "404",
+							description = "Resource not found",
+							content = @Content(
+									mediaType = MediaType.APPLICATION_JSON_VALUE,
+									schema = @Schema(implementation = StandardError.class)
+							)
 					)
 			}
 	)

@@ -12,6 +12,8 @@ import com.github.julioevencio.apiordermanagement.repositories.UserRepository;
 import com.github.julioevencio.apiordermanagement.services.exceptions.DatabaseException;
 import com.github.julioevencio.apiordermanagement.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 
@@ -45,13 +47,17 @@ public class UserService {
 	}
 	
 	public User update(Long id, User user) {
-		User userEntity = userRepository.getReferenceById(id);
-		
-		userEntity.setName(user.getName());
-		userEntity.setEmail(user.getEmail());
-		userEntity.setPhone(user.getPhone());
-		
-		return userRepository.save(userEntity);
+		try {
+			User userEntity = userRepository.getReferenceById(id);
+			
+			userEntity.setName(user.getName());
+			userEntity.setEmail(user.getEmail());
+			userEntity.setPhone(user.getPhone());
+			
+			return userRepository.save(userEntity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("User not found");
+		}
 	}
 	
 }
