@@ -22,7 +22,7 @@ The API documentation is available on Swagger. To access it, follow these steps:
 3. The API documentation should be displayed in Swagger
 
 ## How to run
-Prerequisites: Java 17 and Maven
+Prerequisites: Java 17
 
 ```bash
 # Clone this repository
